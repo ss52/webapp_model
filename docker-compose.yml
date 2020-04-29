@@ -1,0 +1,13 @@
+version: '3'
+services:
+  flask:
+    build: .
+    # command: flask run --host=0.0.0.0
+    command: gunicorn -w 1 -b 0.0.0.0:5000 microblog:app --reload
+    ports:
+      - '5000:5000'
+    volumes:
+      - .:/code
+    environment: 
+      - FLASK_APP=microblog.py
+      - FLASK_DEBUG=1
