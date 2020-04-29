@@ -7,4 +7,4 @@ WORKDIR /code/
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./app /code/app
-COPY ./microblog.py /code/
+COPY ./webapp.py /code/
