@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<title>Model result</title>
+
+<body>
+
+    <div id="res" style="width:700px; height:700px; float:left"></div>
+
+    <div style="width:300px; height:700px; float:left">
+        <table>
+            <thead>
+                <th>Time, min</th>
+                <th>W, %</th>
+            </thead>
+    
+            <tbody>
+    
+                {% for item in tdata %}
+                <tr>
+                    <td> {{ item[0] | replace('.', ',') }} </td>
+                    <td> {{ item[1] | replace('.', ',') }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    
+        </table>
+    </div>
+
+    <script type="text/javascript">
+
+        var graphs = {{graphJSON | safe}};
+        var layout = {
+                    margin: {
+                        l: 30,
+                        r: 30,
+                        b: 20,
+                        t: 20,
+                        pad: 5
+                    }, title: false
+                    };
+        
+        TESTER = document.getElementById('res')
+
+        Plotly.newPlot(TESTER, graphs, layout);
+        
+    </script>
+
+</body>
+
+</html>
