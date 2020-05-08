@@ -1,7 +1,22 @@
-<!doctype html>
-<title>Upload new json file for model</title>
-<h1>Upload new file</h1>
-<form method=post enctype=multipart/form-data>
-    <input type=file name=file>
-    <input type=submit value=Upload>
-</form>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <label for="exampleFormControlFile1">Upload new file</label>
+
+            <form method=post enctype=multipart/form-data class="form-inline">
+                <div class="form-group mb-2">
+                    <input type=file class="form-control-file" name=file>
+                </div>
+                <div class="form-group mb-2"></div>
+                <input type=submit class="btn btn-primary mb-2" value=Upload>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
