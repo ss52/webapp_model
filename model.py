@@ -200,9 +200,9 @@ def batch_calc(input_data):
     nn = 0
 
     Acid1 = Acid0
-    w = []  # степень окисления
-    time = []  # время опыта
-    pe = []  # эквивалентное давление
+    w = [0, ]  # степень окисления
+    time = [0, ]  # время опыта
+    pe = [0, ]  # эквивалентное давление
     w_prev = 0  # значение степени окисления за прошлую минуту
 
     while (te * 60) < (tt + 0.1):
@@ -225,6 +225,9 @@ def batch_calc(input_data):
                 w.append(round(w_prev, 1))
             pe.append(round(pe1 * kappa, 2))
             time.append(round(te * 60, 0))
+
+            if w1 * 100 == 100:
+                break
             nn = 0
 
         x01 = x1
