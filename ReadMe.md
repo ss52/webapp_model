@@ -1,6 +1,6 @@
 pip install flask, python-dotenv
 
-pip freeze > rec.txt
+pip freeze > requirements.txt
 
 environment: 
 - FLASK_APP=microblog.py
