@@ -1,18 +1,22 @@
 {% extends "base.html" %}
 
-{% block content %}
 
 <head>
+
+    {% block head %}
     <!-- D3.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    {% endblock %}
+
+    <title>Model result</title>
+
 </head>
 
-<title>Model result</title>
-
+{% block content %}
 <body>
     <div class="container">
         <div class="row align-items-start">
