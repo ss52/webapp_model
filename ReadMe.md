@@ -8,3 +8,4 @@ environment:
 - FLASK_DEBUG=1
 
 docker exec -it webapp_flask_1 bash
+
