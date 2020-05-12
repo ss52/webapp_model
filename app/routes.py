@@ -1,7 +1,7 @@
 from app import app
 import json
-from flask import render_template, flash, request, redirect
-import model
+from flask import render_template, flash, request, redirect, url_for
+import app.model as model
 import plotly
 
 ALLOWED_EXTENSIONS = {"json"}
@@ -34,6 +34,6 @@ def index():
             graph = [dict(x=time, y=w, type="scatter")]
             graphJSON = json.dumps(graph, cls=plotly.utils.PlotlyJSONEncoder)
 
-            return render_template("pic.html", graphJSON=graphJSON, tdata=tdata)
+            return render_template("pic.html", graphJSON=graphJSON, tdata=tdata, data=data)
 
     return render_template("model.html")
