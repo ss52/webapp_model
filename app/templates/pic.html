@@ -1,183 +1,175 @@
 {% extends "base.html" %}
 
+{% block head %}
+<!-- D3.js -->
+<script src="{{ url_for('static', filename='d3.min.js') }}"></script>
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='jquery-3.4.1.slim.min.js') }}"></script>
+<!-- Plotly.js -->
+<script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
 
-<head>
-
-    {% block head %}
-    <!-- D3.js -->
-    <script src="{{ url_for('static', filename='d3.min.js') }}"></script>
-    <!-- jQuery -->
-    <script src="{{ url_for('static', filename='jquery-3.4.1.slim.min.js') }}"></script>
-    <!-- Plotly.js -->
-    <script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
-    {% endblock %}
-
-    <title>Model result</title>
-
-</head>
+<title>Model result</title>
+{% endblock %}
 
 {% block content %}
-<body>
-    <div class="container">
-        <div class="row align-items-start">
-            <div class="col-sm-8">
-                <div class="responsive-plot" id="res"></div>
-                <br>
-                <div class="accordion" id="accordionParam">
-                    <div class="card">
-                      <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            Параметры модели:
-                          </button>
-                        </h5>
-                      </div>
-                  
-                      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionParam">
-                        <div class="card-body">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr><th>Параметры опыта</th></tr>
-                                    <tr>
-                                        <td>Масса материла</td>
-                                        <td> {{ '%0.3f'| format(data.m | float) | replace('.', ',') }} </td>
-                                        <td>кг</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Oбъем жидкой фазы</td>
-                                        <td> {{ '%0.3f'| format(data.V | float) | replace('.', ',') }} </td>
-                                        <td>л</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Парциальное давление кислорода</td>
-                                        <td> {{ data.PO2 | replace('.', ',') }} </td>
-                                        <td>бар</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Темпераутра</td>
-                                        <td> {{ data.T | replace('.', ',') }} </td>
-                                        <td>° С</td>
-                                    </tr>
-        
-                                    <tr><th>Параметры автоклава</th></tr>
-                                    <tr>
-                                        <td>U0</td>
-                                        <td> {{ data.U0 | replace('.', ',') }} </td>
-                                        <td>мольО2 / (л * ч * атм)</td>
-                                    </tr>
-        
-                                    <tr><th>Кинетические параметры материала</th></tr>
-                                    <tr>
-                                        <td>Стехиометрический расход кислорода</td>
-                                        <td> {{ data.betaO | replace('.', ',') }} </td>
-                                        <td>моль/кг</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Порядок реакции по кислороду</td>
-                                        <td> {{ data.alfaO | replace('.', ',') }} </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Время полного растворения</td>
-                                        <td> {{ data.tau0 | replace('.', ',') }} </td>
-                                        <td>ч</td>
-                                    </tr>
-                                    <tr>
-                                        <td>E/R</td>
-                                        <td> {{ data.EdR | replace('.', ',') }} </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Стандартная температура</td>
-                                        <td> {{ data.T0 | replace('.', ',') }} </td>
-                                        <td>° С</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Коэф. КФ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>a</td>
-                                        <td> {{ data.a | replace('.', ',') }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>b</td>
-                                        <td> {{ data.b | replace('.', ',') }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>c</td>
-                                        <td> {{ data.c | replace('.', ',') }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>d</td>
-                                        <td> {{ data.d | replace('.', ',') }} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Воднорастворимая доля</td>
-                                        <td> {{ data.vd | replace('.', ',') }} </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Предельная степень окисления</td>
-                                        <td> {{ data.psr | replace('.', ',') }} </td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                      </div>
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col-sm-8">
+            <div class="responsive-plot" id="res"></div>
+            <br>
+            <div class="accordion" id="accordionParam">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Параметры модели:
+                        </button>
+                    </h5>
+                    </div>
+                
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionParam">
+                    <div class="card-body">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><th>Параметры опыта</th></tr>
+                                <tr>
+                                    <td>Масса материла</td>
+                                    <td> {{ '%0.3f'| format(data.m | float) | replace('.', ',') }} </td>
+                                    <td>кг</td>
+                                </tr>
+                                <tr>
+                                    <td>Oбъем жидкой фазы</td>
+                                    <td> {{ '%0.3f'| format(data.V | float) | replace('.', ',') }} </td>
+                                    <td>л</td>
+                                </tr>
+                                <tr>
+                                    <td>Парциальное давление кислорода</td>
+                                    <td> {{ data.PO2 | replace('.', ',') }} </td>
+                                    <td>бар</td>
+                                </tr>
+                                <tr>
+                                    <td>Темпераутра</td>
+                                    <td> {{ data.T | replace('.', ',') }} </td>
+                                    <td>° С</td>
+                                </tr>
+    
+                                <tr><th>Параметры автоклава</th></tr>
+                                <tr>
+                                    <td>U0</td>
+                                    <td> {{ data.U0 | replace('.', ',') }} </td>
+                                    <td>мольО2 / (л * ч * атм)</td>
+                                </tr>
+    
+                                <tr><th>Кинетические параметры материала</th></tr>
+                                <tr>
+                                    <td>Стехиометрический расход кислорода</td>
+                                    <td> {{ data.betaO | replace('.', ',') }} </td>
+                                    <td>моль/кг</td>
+                                </tr>
+                                <tr>
+                                    <td>Порядок реакции по кислороду</td>
+                                    <td> {{ data.alfaO | replace('.', ',') }} </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Время полного растворения</td>
+                                    <td> {{ data.tau0 | replace('.', ',') }} </td>
+                                    <td>ч</td>
+                                </tr>
+                                <tr>
+                                    <td>E/R</td>
+                                    <td> {{ data.EdR | replace('.', ',') }} </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Стандартная температура</td>
+                                    <td> {{ data.T0 | replace('.', ',') }} </td>
+                                    <td>° С</td>
+                                </tr>
+                                <tr>
+                                    <td>Коэф. КФ</td>
+                                </tr>
+                                <tr>
+                                    <td>a</td>
+                                    <td> {{ data.a | replace('.', ',') }} </td>
+                                </tr>
+                                <tr>
+                                    <td>b</td>
+                                    <td> {{ data.b | replace('.', ',') }} </td>
+                                </tr>
+                                <tr>
+                                    <td>c</td>
+                                    <td> {{ data.c | replace('.', ',') }} </td>
+                                </tr>
+                                <tr>
+                                    <td>d</td>
+                                    <td> {{ data.d | replace('.', ',') }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Воднорастворимая доля</td>
+                                    <td> {{ data.vd | replace('.', ',') }} </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Предельная степень окисления</td>
+                                    <td> {{ data.psr | replace('.', ',') }} </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-sm-4">
-                <h4>Результаты расчёта:</h4>
-                <table class="table table-sm">
-                    <thead>
-                        <th scope="col">Время, мин</th>
-                        <th scope="col">Степень окисления, %</th>
-                    </thead>
+        <div class="col-sm-4">
+            <h4>Результаты расчёта:</h4>
+            <table class="table table-sm">
+                <thead>
+                    <th scope="col">Время, мин</th>
+                    <th scope="col">Степень окисления, %</th>
+                </thead>
 
-                    <tbody>
+                <tbody>
 
-                        {% for item in tdata %}
-                        <tr>
-                            <td> {{ item[0] | replace('.', ',') }} </td>
-                            <td> {{ item[1] | replace('.', ',') }} </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
+                    {% for item in tdata %}
+                    <tr>
+                        <td> {{ item[0] | replace('.', ',') }} </td>
+                        <td> {{ item[1] | replace('.', ',') }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
 
-                </table>
-            </div>
+            </table>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        var graphs = {{ graphJSON | safe}};
-        var layout = {
-            margin: {
-                l: 50,
-                r: 20,
-                b: 50,
-                t: 50,
-                pad: 5
-            },
-            title: false,
-            xaxis: {
-                title: 'Время, мин'
-            },
-            yaxis: {
-                title: 'Степень окисления, %'
-            }
-        };
+    var graphs = {{ graphJSON | safe}};
+    var layout = {
+        margin: {
+            l: 50,
+            r: 20,
+            b: 50,
+            t: 50,
+            pad: 5
+        },
+        title: false,
+        xaxis: {
+            title: 'Время, мин'
+        },
+        yaxis: {
+            title: 'Степень окисления, %'
+        }
+    };
 
-        TESTER = document.getElementById('res')
+    TESTER = document.getElementById('res')
 
-        Plotly.newPlot(TESTER, graphs, layout);
+    Plotly.newPlot(TESTER, graphs, layout);
 
-    </script>
-
-</body>
+</script>
 
 {% endblock %}
