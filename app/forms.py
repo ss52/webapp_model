@@ -4,6 +4,5 @@ from wtforms import TextAreaField, SubmitField
 
 
 class Change_json(FlaskForm):
-    # name = StringField('name', validators=[DataRequired()])
-    input_field = TextAreaField('Input', render_kw={"rows": 20, "cols": 10})
-    submit = SubmitField('Do this')
+    input_field = TextAreaField('Input', render_kw={"rows": 24, "cols": 10})
+    submit = SubmitField('Расчёт')

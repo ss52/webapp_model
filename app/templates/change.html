@@ -9,7 +9,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-6">
             <form method="POST" action="" class="form-horisontal">
                 
                 {{ form.csrf_token }}
@@ -18,6 +18,34 @@
                 {{ render_field(form.submit) }}
 
             </form>
+        </div>
+        <div class="col-6">
+            <p>Описание параметров модели: </p>
+            <ul> 
+                <li>m - масса материала, кг</li>
+                <li>V - объем жидкой фазы, л</li>
+                <li>U0 - U0, мольО2 / (л * ч * атм)</li>
+                <li>PO2 - Парциальное давление кислорода, бар</li>
+                <li>T - Темпераутра, °C</li>
+                <li>dt1 - Шаг по времени, мин</li>
+                <li>tt - Продолжительность процесса, мин</li>
+                <li>Acid0 - Начальная концентрация кислоты, г/л</li>
+                <li>kappa - Каппа</li>
+                <li>s - Доля компонента</li>
+                <li>T0 -  # Стандартная температура, °C</li>
+                <li>betaO - Стехиометрический расход кислорода, моль/кг</li>
+                <li>alfaO - Порядок реакции по кислороду</li>
+                <li>betaA - Расход кислоты, кг/кг</li>
+                <li>alfaA - Порядок реакции по кислоте</li>
+                <li>tau0 - Время полного растворения, ч</li>
+                <li>EdR - E/R</li>
+                <li>a - Коэф. КФ</li>
+                <li>b - Коэф. КФ</li>
+                <li>c - Коэф. КФ</li>
+                <li>d - Коэф. КФ</li>
+                <li>vd - Воднорастворимая доля</li>
+                <li>psr - Предельная степень окисления</li>
+            </ul>
         </div>
     </div>
 </div>

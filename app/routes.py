@@ -33,12 +33,11 @@ def index():
                 flash("No file part")
                 return redirect(request.url)
             file = request.files["file"]
-            # file.save(os.path.join(uploads_dir, file.filename))
-            # if user does not select file, browser also
-            # submit an empty part without filename
+
             if file.filename == "":
                 flash("No selected file")
                 return redirect(request.url)
+
             if file and allowed_file(file.filename):
                 data = json.load(file)
                 graphJSON, tdata = make_calc(data)
@@ -52,9 +51,11 @@ def index():
                 flash("No file part")
                 return redirect(request.url)
             file = request.files["file"]
+
             if file.filename == "":
                 flash("No selected file")
                 return redirect(request.url)
+
             if file and allowed_file(file.filename):
                 data = json.load(file)
                 return redirect(url_for('change', data=data))
@@ -69,7 +70,8 @@ def change():
     data = request.args['data']
 
     if request.method == "GET":
-        MyForm.input_field.data = data
+        MyForm.input_field.data = data.replace(", ", ",\n")
+        # MyForm.input_field.data = f'test \ntest \n'
 
     if MyForm.validate_on_submit():
         new_data = json.loads(MyForm.input_field.data.replace("'", '"'))
