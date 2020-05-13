@@ -1,0 +1,25 @@
+
+{% from 'bootstrap/form.html' import render_field %}
+{% extends "base.html" %}
+
+{% block head %}
+<title>Batch Model App</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form method="POST" action="" class="form-horisontal">
+                
+                {{ form.csrf_token }}
+                {{ render_field(form.input_field) }}
+
+                {{ render_field(form.submit) }}
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
