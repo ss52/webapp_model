@@ -5,6 +5,7 @@ import app.model as model
 import plotly
 from app.forms import Change_json
 
+
 ALLOWED_EXTENSIONS = {"json"}
 
 
