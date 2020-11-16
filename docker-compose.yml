@@ -3,7 +3,7 @@ services:
   flask:
     build: .
     # command: flask run --host=0.0.0.0
-    command: gunicorn -w 4 -b 0.0.0.0:5000 webapp:app --reload
+    command: gunicorn -w 4 -b 0.0.0.0:5000 webapp:app
     expose:
       - 5000
     volumes:

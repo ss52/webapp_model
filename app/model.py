@@ -1,9 +1,3 @@
-# %%
-# TODO:
-# 1.
-# 2.
-#
-
 import math
 import json
 
