@@ -9,3 +9,9 @@ environment:
 
 docker exec -it webapp_flask_1 bash
 
+Build new docker image:
+docker build -f ./Base_docker/Dockerfile .
+then tag it
+docker tag <docker images> smarkelov/flask
+then push
+docker push smarkelov/flask
